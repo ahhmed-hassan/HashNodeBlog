@@ -185,6 +185,12 @@ public record NegativeInfinity<T> : RangeBound<T>
 
 This design is now open for extension. When we needed negative infinity, we simply added a new class without touching existing code. Each boundary type handles its own comparison logic: `Concrete` knows how to compare values, `PositiveInfinity` knows it's always greater than everything except itself, and `NegativeInfinity` knows it's always less. The `Range` class remains completely unchanged throughout these modifications. That's the power of encapsulation.
 
+And for the sake of completeness, here is how Martin expressed it at high-level using UML
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1765533339363/de1dda1a-e519-4a34-911c-7837cc751074.jpeg align="center")
+
+We have used generics to make it resuable for all comparable types. Note that it is `Comparable` not `IComparable` cause this is Java not C#
+
 # Wrapping Up: The Evolution of Our Design
 
 Throughout this article, we've evolved our Range type through three distinct approaches, each teaching us something valuable:
