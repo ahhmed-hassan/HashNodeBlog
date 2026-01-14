@@ -112,7 +112,7 @@ public class MiddlewareContainer : IMiddleware{
 It of course would work so and I can indeed now add `MiddlewareConainer` to another `MiddlewareContainer`and behaves as it was a single `Middleware`, but if a `MiddlewareContainer` is just a `Middleware`, why not use it directly then:
 
 ```csharp
-public class MiddlewareContainer : IMiddleware{
+public class Middleware : IMiddleware{
     private IMiddleware _middleware; 
     public MiddlewareContainer(IMiddleware middleware) => _middleware = middleware;
     public bool next(HttpContenxt httpContent){
@@ -124,4 +124,4 @@ public class MiddlewareContainer : IMiddleware{
 }
 ```
 
-As you see here, we do not expose AddMiddleware Method any more
+As you see here, we do not expose `AddMiddleware` method any more, we will get to that in a second tho. Also `MiddlewareContainer` is renamed to `Middleware`.
