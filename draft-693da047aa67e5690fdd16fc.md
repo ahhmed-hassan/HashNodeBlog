@@ -123,3 +123,5 @@ public class MiddlewareContainer : IMiddleware{
     }
 }
 ```
+
+As you see here, we do not expose AddMiddleware Method any more
