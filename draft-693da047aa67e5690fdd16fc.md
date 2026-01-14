@@ -91,4 +91,35 @@ If you actually look closer, you can see that this `MiddlewareContainer` is itse
 
 ## The Decorator
 
-Well here is the fact that we overseen : The container type is same as the type, just like how you represent tree data-structure, except there is no leaves here.
+Well here is the fact that we overseen : The container’s type is the same as the type it included, just like how you represent tree data-structure, except there is no leaves here.
+
+So with exactly these two modifications, the code becomes:
+
+```csharp
+public class MiddlewareContainer : IMiddleware{
+    private List<IMiddleware> _middlewares = new List<IMiddleware>();
+    public void AddMiddleware(IMiddleware middleware) => _middlewares.Add(middleware);
+    public bool next(HttpContenxt httpContent){
+        foreach (var middleware in _middlewares){
+            if(!middleware.next(httpContent))
+                return false;
+        }
+        return true;
+    }
+}
+```
+
+It of course would work so and I can indeed now add `MiddlewareConainer` to another `MiddlewareContainer`and behaves as it was a single `Middleware`, but if a `MiddlewareContainer` is just a `Middleware`, why not use it directly then:
+
+```csharp
+public class MiddlewareContainer : IMiddleware{
+    private IMiddleware _middleware; 
+    public MiddlewareContainer(IMiddleware middleware) => _middleware = middleware;
+    public bool next(HttpContenxt httpContent){
+        // Some logic
+       bool innerMiddleware = _middleware.next(); 
+        // Some logic
+        return innerMiddleware;
+    }
+}
+```
